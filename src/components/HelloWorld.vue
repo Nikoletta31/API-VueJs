@@ -1,126 +1,95 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest"
-          target="_blank"
-          rel="noopener"
-          >unit-jest</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+  <div>
+    <h1>Welcome to our fruits collection</h1>
+    <button class="add" v-b-modal.modal-1>Add new fruit <i class="fas fa-plus"></i></button>
+   
+    <div class="hello">
+      <ul v-for="item in fruits" :key="item.id" class="list">
+        <li>
+          <div
+            class="image"
+            :style="{ 'background-image': 'url(' + item.image + ')' }"
+          ></div>
+        </li>
+        <li>
+          <h2>{{ item.name }}</h2>
+        </li>
+
+        <li>
+          <button class="more" @click="seeMore(item)">More details</button
+          ><button class="delete" @click="removeFruit(item)">Delete</button>
+        </li>
+      </ul>
+
+      
+    </div>
+    <modalAdd />
+      <modalDetail :datas="datas" :ModalDetail="ModalDetail"/>
+
+          <b-modal ref="modal-remove" centered hide-footer hide-header class="mb-3">
+      <div class="d-block text-center">
+        <h3>The fruit has been removed to the list!</h3>
+      </div>
+  
+    </b-modal>
   </div>
 </template>
 
 <script>
+import modalAdd from "@/components/ModalAdd.vue";
+import modalDetail from "@/components/ModalDetail.vue";
+
+
+
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
-  }
+ 
+  data() {
+    return {
+     datas:{},
+      ModalDetail: false,
+    };
+  },
+  components: {
+    modalAdd,
+    modalDetail
+  },
+
+  /* Calling api request from store */
+    created() {
+ this.$store.dispatch("getFruits");
+  }, 
+
+  methods: {
+
+      /* Function called on button "More details" */
+    seeMore(item) {
+      this.ModalDetail = true;
+      this.datas = item;
+    },
+
+     /* Function called on button "Delete" */
+      removeFruit(item) {
+     this.$store.dispatch("removeFruit", item);
+      this.$refs["modal-remove"].show();
+    }, 
+
+  }, 
+
+   /* Getting data from store */
+   computed: {
+    fruits() {
+    return this.$store.state.fruits
+    }
+  },
+  
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "@/assets/styles/cards.scss";
+
 h3 {
   margin: 40px 0 0;
 }

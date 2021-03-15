@@ -1,0 +1,60 @@
+@import "@/assets/styles/mixins.scss";
+
+.addFruit {
+      
+    background-color:rgb(227, 245, 240);
+  margin:30px 5px 30px 5px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 30px;
+  @include button-style; 
+  &:hover{
+      background-color:rgb(208, 245, 234);
+    }
+}
+
+
+.closeModal {
+      
+    background-color:rgb(243, 243, 243);
+  margin:10px 5px 10px 5px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 30px;
+  @include button-style; 
+  &:hover{
+    background-color:rgb(253, 216, 216);
+    }
+}
+
+.modal1 {
+    border-radius:20px;
+}
+
+.image {
+    margin: 5px 0px 20px 0px;
+    height: 300px;
+    border-radius: 5px;
+    width: 100%;
+    background-size: cover;
+    
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+.priceFlex {
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.price {
+    background-color:rgb(227, 245, 240);
+    
+	padding: 5px 20px 5px 20px;
+    border-radius: 30px;
+}
+
+.descr {
+    margin-top:10px;
+}

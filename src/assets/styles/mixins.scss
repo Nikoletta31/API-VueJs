@@ -1,0 +1,16 @@
+@mixin button-style{
+    font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    color: inherit;
+    border: none;
+}
+
+@mixin button-style-add{
+    font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    color: inherit;
+    border: none;
+    font-weight: bold;
+}
