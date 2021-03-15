@@ -60,7 +60,8 @@ export default {
   data() {
     return {};
   },
-  created() {},
+ 
+   /* Close function for top icon */
 
   methods: {
     hideModal() {

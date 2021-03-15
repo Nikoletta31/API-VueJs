@@ -122,9 +122,15 @@ export default {
   created() {},
 
   methods: {
+
+      /* Close button */
+
     hideModal() {
       this.$refs["modal-1"].hide();
     },
+
+      /* Add new fruit function */
+
   async  addNew() {
       this.$refs["modal-1"].hide();
       this.success = await this.$store.dispatch("addNewFruit", this.datas);

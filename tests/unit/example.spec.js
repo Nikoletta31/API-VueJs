@@ -4,6 +4,7 @@ import ModalAdd from "@/components/ModalAdd.vue";
 import App from "@/App.vue";
 
 
+
 describe('Mounted App', () => {
   const wrapper = mount(App);
 
@@ -55,6 +56,11 @@ describe("ModalAdd.vue", () => {
     })
     
   })
+
+
+
+
+
 });
 
 
